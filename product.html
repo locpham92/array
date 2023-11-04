@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Manager</title>
+    <style>
+        .btn {
+            background-color: #50AF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius:5px
+        }
+        .input {
+            height: 28px;
+            width: 250px;
+        }
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td, th {
+            width: 200px;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<h2>Add New Product</h2>
+<input type="text" placeholder="Name" id="name" class="input"><br>
+<input type="text" placeholder="Price" id="price" class="input"><br>
+<input type="text" placeholder="Image link" id="img" class="input"><br><br>
+<button type="button" class="btn" onclick="add()">Add</button>
+<h2>Display All Product</h2>
+<h3 id="counter"></h3>
+<br>
+<table>
+    <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tbody id="display">
+
+    </tbody>
+</table>
+<script>
+    let products =[];
+    show();
+    function show() {
+        let str = "";
+        for (let i = 0; i < products.length; i++) {
+            str += `<tr>
+                <td>${i+1}</td>
+                <td>${products[i][0]}</td>
+                <td>${products[i][1]}</td>
+                <td>
+                    <img src="${products[i][2]}" width="200" height="160">
+                </td>
+                 <td>
+                     <button class="btn" onclick="editProduct()">Edit</button>
+                </td>
+                 <td>
+                       <button class="btn" onclick="deleteProduct(${i})">Delete</button>
+                </td>
+               </tr>`
+        }
+        document.getElementById("display").innerHTML = str;
+    }
+    function add() {
+        let name = document.getElementById("name").value;
+        let price = document.getElementById("price").value;
+        let img = document.getElementById("img").value;
+
+        let product = [name,price,img];
+        products.push(product);
+        show();
+        document.getElementById("counter").innerHTML = products.length+" products";
+    }
+
+    function deleteProduct(index) {
+        products.splice(index,1);
+        document.getElementById("counter").innerHTML = products.length+" products";
+        show();
+    }
+
+    function editProduct() {
+
+    }
+</script>
+</body>
+</html>
